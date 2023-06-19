@@ -274,7 +274,8 @@ def api_only():
     app = FastAPI()
     setup_middleware(app)
     api = create_api(app)
-
+    
+    modules.script_callbacks.before_ui_callback()
     modules.script_callbacks.app_started_callback(None, app)
 
     print(f"Startup time: {startup_timer.summary()}.")
