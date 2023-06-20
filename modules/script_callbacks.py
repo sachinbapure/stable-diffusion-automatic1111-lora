@@ -227,6 +227,7 @@ def script_unloaded_callback():
 
 
 def before_ui_callback():
+    print ("this executed for lora")
     for c in reversed(callback_map['callbacks_before_ui']):
         try:
             c.callback()

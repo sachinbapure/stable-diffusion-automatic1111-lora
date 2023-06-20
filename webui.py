@@ -275,6 +275,7 @@ def api_only():
     setup_middleware(app)
     api = create_api(app)
     
+    print ("Before UI Callback for lora is added")
     modules.script_callbacks.before_ui_callback()
     modules.script_callbacks.app_started_callback(None, app)
 
