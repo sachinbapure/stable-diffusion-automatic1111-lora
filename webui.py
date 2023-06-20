@@ -321,7 +321,7 @@ def webui():
         app, local_url, share_url = shared.demo.launch(
             share=cmd_opts.share,
             server_name=server_name,
-            server_port=cmd_opts.port,
+            server_port=7645,
             ssl_keyfile=cmd_opts.tls_keyfile,
             ssl_certfile=cmd_opts.tls_certfile,
             ssl_verify=cmd_opts.disable_tls_verify,
@@ -347,7 +347,11 @@ def webui():
         modules.ui.setup_ui_api(app)
 
         if launch_api:
-            create_api(app)
+            api = create_api(app)
+            modules.script_callbacks.app_started_callback(None, app)
+
+            print(f"Startup time: {startup_timer.summary()}.")
+            api.launch(server_name="0.0.0.0" if cmd_opts.listen else "127.0.0.1", port=cmd_opts.port if cmd_opts.port else 7861)
 
         ui_extra_networks.add_pages_to_demo(app)
 
